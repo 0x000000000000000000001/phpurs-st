@@ -26,7 +26,7 @@ $read = function($ref) use (&$read) { return function() use(&$ref) { return $ref
 $modifyImpl = function($f, $ref = null) use (&$modifyImpl) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$pure_) {
+        return function(...$more) use ($__args, &$modifyImpl) {
 
             return $modifyImpl(...array_merge($__args, $more));
         };
@@ -36,7 +36,7 @@ $modifyImpl = function($f, $ref = null) use (&$modifyImpl) {
 $write = function($val, $ref = null) use (&$write) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$new) {
+        return function(...$more) use ($__args, &$write) {
 
             return $write(...array_merge($__args, $more));
         };
@@ -47,7 +47,7 @@ $run = function($f) use (&$run) { return $f(); };
 $while = function($f, $a = null) use (&$while) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$read) {
+        return function(...$more) use ($__args, &$while) {
 
             return $while(...array_merge($__args, $more));
         };
@@ -57,7 +57,7 @@ $while = function($f, $a = null) use (&$while) {
 $for = function($lo, $hi = null, $f = null) use (&$for) {
     if (func_num_args() < 3) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$modifyImpl) {
+        return function(...$more) use ($__args, &$for) {
 
             return $for(...array_merge($__args, $more));
         };
@@ -67,7 +67,7 @@ $for = function($lo, $hi = null, $f = null) use (&$for) {
 $foreach = function($as, $f = null) use (&$foreach) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$write) {
+        return function(...$more) use ($__args, &$foreach) {
 
             return $foreach(...array_merge($__args, $more));
         };
