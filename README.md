@@ -1,4 +1,4 @@
-# purescript-st
+# phpurs-st
 
 [![Latest release](http://img.shields.io/github/release/purescript/purescript-st.svg)](https://github.com/purescript/purescript-st/releases)
 [![Build status](https://github.com/purescript/purescript-st/workflows/CI/badge.svg?branch=master)](https://github.com/purescript/purescript-st/actions?query=workflow%3ACI+branch%3Amaster)
