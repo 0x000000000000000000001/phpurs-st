@@ -8,7 +8,7 @@ $map_ = function($f, $a = null) use (&$map_) {
             return $map_(...\array_merge($__args, $more));
         };
     }
-    return function() use(&$f, &$a) { return $f($a()); };
+    return function() use($f, $a) { return $f($a()); };
 };
 $bind_ = function($a, $f = null) use (&$bind_) {
     if (\func_num_args() < 2) {
@@ -18,11 +18,11 @@ $bind_ = function($a, $f = null) use (&$bind_) {
             return $bind_(...\array_merge($__args, $more));
         };
     }
-    return function() use(&$a, &$f) { return $f($a())(); };
+    return function() use($a, $f) { return $f($a())(); };
 };
-$pure_ = function($a) use (&$pure_) { return function() use(&$a) { return $a; }; };
-$new = function($val) use (&$new) { return function() use(&$val) { return (object)['value' => $val]; }; };
-$read = function($ref) use (&$read) { return function() use(&$ref) { return $ref->value; }; };
+$pure_ = function($a) { return function() use($a) { return $a; }; };
+$new = function($val) { return function() use($val) { return (object)['value' => $val]; }; };
+$read = function($ref) { return function() use($ref) { return $ref->value; }; };
 $modifyImpl = function($f, $ref = null) use (&$modifyImpl) {
     if (\func_num_args() < 2) {
         $__args = \func_get_args();
@@ -31,7 +31,7 @@ $modifyImpl = function($f, $ref = null) use (&$modifyImpl) {
             return $modifyImpl(...\array_merge($__args, $more));
         };
     }
-    return function() use(&$f, &$ref) { $t = $f($ref->value); $ref->value = $t->state; return $t->value; };
+    return function() use($f, $ref) { $t = $f($ref->value); $ref->value = $t->state; return $t->value; };
 };
 $write = function($val, $ref = null) use (&$write) {
     if (\func_num_args() < 2) {
@@ -41,9 +41,9 @@ $write = function($val, $ref = null) use (&$write) {
             return $write(...\array_merge($__args, $more));
         };
     }
-    return function() use(&$val, &$ref) { $ref->value = $val; return $val; };
+    return function() use($val, $ref) { $ref->value = $val; return $val; };
 };
-$run = function($f) use (&$run) { return $f(); };
+$run = function($f) { return $f(); };
 $while = function($f, $a = null) use (&$while) {
     if (\func_num_args() < 2) {
         $__args = \func_get_args();
@@ -52,7 +52,7 @@ $while = function($f, $a = null) use (&$while) {
             return $while(...\array_merge($__args, $more));
         };
     }
-    return function() use(&$f, &$a) { while ($f()) { $a(); } return null; };
+    return function() use($f, $a) { while ($f()) { $a(); } return null; };
 };
 $for = function($lo, $hi = null, $f = null) use (&$for) {
     if (\func_num_args() < 3) {
@@ -62,7 +62,7 @@ $for = function($lo, $hi = null, $f = null) use (&$for) {
             return $for(...\array_merge($__args, $more));
         };
     }
-    return function() use(&$lo, &$hi, &$f) { for ($i = $lo; $i < $hi; $i++) { $f($i)(); } return null; };
+    return function() use($lo, $hi, $f) { for ($i = $lo; $i < $hi; $i++) { $f($i)(); } return null; };
 };
 $foreach = function($as, $f = null) use (&$foreach) {
     if (\func_num_args() < 2) {
@@ -72,7 +72,7 @@ $foreach = function($as, $f = null) use (&$foreach) {
             return $foreach(...\array_merge($__args, $more));
         };
     }
-    return function() use(&$as, &$f) { foreach ($as as $a) { $f($a)(); } return null; };
+    return function() use($as, $f) { foreach ($as as $a) { $f($a)(); } return null; };
 };
 
 $exports['map_'] = $map_;
