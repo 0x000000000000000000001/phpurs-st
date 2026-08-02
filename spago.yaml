@@ -1,7 +1,1 @@
-package:
-  name: st
-  dependencies:
-    - partial
-    - prelude
-    - tailrec
-    - unsafe-coerce
+spago.php.yaml
